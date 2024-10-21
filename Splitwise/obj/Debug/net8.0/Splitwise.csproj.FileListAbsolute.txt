@@ -1,0 +1,14 @@
+/home/aleks/Projects/Splitwise/bin/Debug/net8.0/Splitwise
+/home/aleks/Projects/Splitwise/bin/Debug/net8.0/Splitwise.deps.json
+/home/aleks/Projects/Splitwise/bin/Debug/net8.0/Splitwise.runtimeconfig.json
+/home/aleks/Projects/Splitwise/bin/Debug/net8.0/Splitwise.dll
+/home/aleks/Projects/Splitwise/bin/Debug/net8.0/Splitwise.pdb
+/home/aleks/Projects/Splitwise/obj/Debug/net8.0/Splitwise.GeneratedMSBuildEditorConfig.editorconfig
+/home/aleks/Projects/Splitwise/obj/Debug/net8.0/Splitwise.AssemblyInfoInputs.cache
+/home/aleks/Projects/Splitwise/obj/Debug/net8.0/Splitwise.AssemblyInfo.cs
+/home/aleks/Projects/Splitwise/obj/Debug/net8.0/Splitwise.csproj.CoreCompileInputs.cache
+/home/aleks/Projects/Splitwise/obj/Debug/net8.0/Splitwise.dll
+/home/aleks/Projects/Splitwise/obj/Debug/net8.0/refint/Splitwise.dll
+/home/aleks/Projects/Splitwise/obj/Debug/net8.0/Splitwise.pdb
+/home/aleks/Projects/Splitwise/obj/Debug/net8.0/Splitwise.genruntimeconfig.cache
+/home/aleks/Projects/Splitwise/obj/Debug/net8.0/ref/Splitwise.dll
