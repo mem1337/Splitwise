@@ -1,11 +1,15 @@
 using System;
+using System.ComponentModel;
+using System.Text.Json.Serialization.Metadata;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 namespace Splitwise;
 
 class Program
 {
     public static void Main(String[] args)
     {
-        //Variables
         int id = 0;
         int decision;
 
@@ -15,21 +19,17 @@ class Program
         string name;
         string expenseName;
 
-        //Users and expenses
         List<User> users = new List<User>();
         List<Expense> expenses = new List<Expense>();
 
-        //Main loop
         while(true)
         {
-            //Defining dictionary over and over so it resets
-            Dictionary<User, float> whoOwes = new Dictionary<User, float>();
+            Dictionary<string, float> whoOwes = new Dictionary<string, float>();
 
             Console.WriteLine("Press (1) to add a user, (2) to add an expense, (3) to show the debt.");
             decision = Convert.ToInt32(Console.ReadLine());
             switch(decision)
             {
-                //Add a user
                 case 1:
                     id++;
                     Console.WriteLine("What is the name of the user?");
@@ -38,7 +38,6 @@ class Program
                     users.Add(user);
                     break;
 
-                //Add an expense
                 case 2:
                     Console.WriteLine("What is the name of the expense?");
                     expenseName = Console.ReadLine();
@@ -54,7 +53,6 @@ class Program
                     decision = Convert.ToInt32(Console.ReadLine())-1;
                     Console.WriteLine($"{users[decision].Name} is paying!");
 
-                    //Loop to get money and calculate how much does everybody owe
                     float tempMoney = 0;
                     for (int i = 0; i < users.Count; i++)
                     {
@@ -63,31 +61,36 @@ class Program
                             Console.WriteLine($"How much does {users[i].Name} owe?");
                             money = Convert.ToInt32(Console.ReadLine());
 
+                            if (money >= cost-tempMoney)
+                            {
+                                whoOwes.Add(users[i].Name,(cost-tempMoney));
+                                break;
+                            }
                             if (money < cost-tempMoney)
                             {
                                 tempMoney+=money;
-                                Console.WriteLine(tempMoney);
-                                whoOwes.Add(users[i],money);
-                            }
-                            if (money > cost-tempMoney)
-                            {
-                                whoOwes.Add(users[i],(cost-tempMoney));
-                                break;
+                                whoOwes.Add(users[i].Name,money);
                             }
                         }
                     }
 
-                    //Add an expense
                     Expense expense = new Expense(expenseName,cost,whoOwes,users[decision].Name);
                     expenses.Add(expense);
+                    ExpenseManager expenseManager = new ExpenseManager(expenses,users);
                     break;
-
-                //List expenses and debts
                 case 3:
+                    using (StreamReader file = File.OpenText(@"json"))
+                    using (JsonTextReader reader = new JsonTextReader(file))
+                    {
+                        JObject output = (JObject)JToken.ReadFrom(reader);
+                        Expense deserializedExpense = JsonConvert.DeserializeObject<Expense>(output.ToString());
+                        Console.WriteLine(deserializedExpense.ToString());
+                    }
+                   /*
                     for(int i = 0; i<expenses.Count; i++)
                     {
                         Console.WriteLine(expenses[i].ToString());
-                    }
+                    }*/
                     break;
             }
         }

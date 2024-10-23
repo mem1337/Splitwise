@@ -12,3 +12,7 @@
 /home/aleks/Projects/Splitwise/obj/Debug/net8.0/Splitwise.pdb
 /home/aleks/Projects/Splitwise/obj/Debug/net8.0/Splitwise.genruntimeconfig.cache
 /home/aleks/Projects/Splitwise/obj/Debug/net8.0/ref/Splitwise.dll
+/home/aleks/Projects/Splitwise/bin/Debug/net8.0/Newtonsoft.Json.dll
+/home/aleks/Projects/Splitwise/obj/Debug/net8.0/Splitwise.csproj.AssemblyReference.cache
+/home/aleks/Projects/Splitwise/obj/Debug/net8.0/Splitwise.sourcelink.json
+/home/aleks/Projects/Splitwise/obj/Debug/net8.0/Splitwise.csproj.CopyComplete
