@@ -10,14 +10,4 @@ public class ExpenseManager
         ExpenseList = expenseList;
         UserList = userList;
     }
-    public ExpenseManager Deserialize()
-    {
-        string jsonContent=File.ReadAllText(@"json");
-        ExpenseManager expenseManager = JsonConvert.DeserializeObject<ExpenseManager>(jsonContent);
-        return expenseManager;
-    }
-    public void Serialize(ExpenseManager expenseManager)
-    {
-        string json = JsonConvert.SerializeObject(expenseManager, Formatting.Indented);
-    }
 }
