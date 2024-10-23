@@ -10,10 +10,11 @@ public class ExpenseManager
         ExpenseList = expenseList;
         UserList = userList;
     }
-    public void Deserialize(ExpenseManager expenseManager)
+    public ExpenseManager Deserialize()
     {
         string jsonContent=File.ReadAllText(@"json");
-        expenseManager = JsonConvert.DeserializeObject<ExpenseManager>(jsonContent);
+        ExpenseManager expenseManager = JsonConvert.DeserializeObject<ExpenseManager>(jsonContent);
+        return expenseManager;
     }
     public void Serialize(ExpenseManager expenseManager)
     {
