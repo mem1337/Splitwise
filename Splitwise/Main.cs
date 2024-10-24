@@ -27,7 +27,7 @@ class Program
         //ExpenseManager expenseManager = new ExpenseManager(users, expenses);
         users = expenseManager.GetUsers();
         expenses = expenseManager.GetExpenses();
-        id = expenseManager.GetId();
+        id = expenseManager.GetId()-1;
 
         while(true)
         {
