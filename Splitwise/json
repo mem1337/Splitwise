@@ -1,1 +1,1 @@
-Splitwise.ExpenseManager
+{"UserList":[{"Name":"Deniz","Id":1},{"Name":"Mert","Id":2},{"Name":"Alex","Id":3},{"Name":"Fahri","Id":4}],"ExpenseList":[{"ExpenseName":"Market","ExpenseCost":500.0,"WhoOwes":{"Mert":300.0,"Alex":200.0},"WhoPaid":"Deniz"},{"ExpenseName":"Market","ExpenseCost":600.0,"WhoOwes":{"Deniz":300.0,"Mert":200.0,"Alex":100.0},"WhoPaid":"Fahri"}],"Id":5}

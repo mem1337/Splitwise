@@ -22,11 +22,18 @@ class Program
         List<User> users = new List<User>();
         List<Expense> expenses = new List<Expense>();
 
+        var json = File.ReadAllText(@"json");
+        var expenseManager = JsonConvert.DeserializeObject<ExpenseManager>(json);
+        //ExpenseManager expenseManager = new ExpenseManager(users, expenses);
+        users = expenseManager.GetUsers();
+        expenses = expenseManager.GetExpenses();
+        id = expenseManager.GetId();
+
         while(true)
         {
             Dictionary<string, float> whoOwes = new Dictionary<string, float>();
 
-            Console.WriteLine("Press (1) to add a user, (2) to add an expense, (3) to show the debt.");
+            Console.WriteLine("Press (1) to add a user, (2) to add an expense, (3) to show the debt, (4) to list the users.");
             decision = Convert.ToInt32(Console.ReadLine());
             switch(decision)
             {
@@ -36,6 +43,8 @@ class Program
                     name = Console.ReadLine();
                     User user = new User(name,id);
                     users.Add(user);
+                    expenseManager.UpdateUsers(users);
+                    expenseManager.UpdateId(id);
                     break;
 
                 case 2:
@@ -76,13 +85,21 @@ class Program
 
                     Expense expense = new Expense(expenseName,cost,whoOwes,users[decision].Name);
                     expenses.Add(expense);
+                    expenseManager.UpdateExpenses(expenses);
+                    File.WriteAllText(@"json", JsonConvert.SerializeObject(expenseManager));
+
                     break;
                 case 3:
-                    /*
                     for(int i = 0; i<expenses.Count; i++)
                     {
                         Console.WriteLine(expenses[i].ToString());
-                    }*/
+                    }
+                    break;
+                case 4:
+                    for(int i = 0; i<users.Count; i++)
+                    {
+                        Console.WriteLine(users[i].Name);
+                    }
                     break;
             }
         }

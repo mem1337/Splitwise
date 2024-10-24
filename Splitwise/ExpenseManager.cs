@@ -7,6 +7,7 @@ public class ExpenseManager
 {
     public List<User> UserList;
     public List<Expense> ExpenseList;
+    public int Id;
     public ExpenseManager(List<User> userList, List<Expense> expenseList)
     {
         UserList = userList;
@@ -20,11 +21,20 @@ public class ExpenseManager
     {
         return ExpenseList;
     }
-    public void UpdateLists()
+    public int GetId()
     {
-        var json = File.ReadAllText("json");
-        var expenseManager = JsonConvert.DeserializeObject<ExpenseManager>(json);
-        UserList = expenseManager.UserList;
-        ExpenseList = expenseManager.ExpenseList;
+        return Id;
+    }
+    public void UpdateUsers(List<User> userList)
+    {
+        UserList = userList;
+    }
+    public void UpdateExpenses(List<Expense> expenseList)
+    {
+        ExpenseList = expenseList;
+    }
+    public void UpdateId(int id)
+    {
+        Id = id;
     }
 }
