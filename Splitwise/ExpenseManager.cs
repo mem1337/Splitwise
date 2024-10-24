@@ -7,16 +7,10 @@ public class ExpenseManager
 {
     public List<User> UserList;
     public List<Expense> ExpenseList;
-    public ExpenseManager()
+    public ExpenseManager(List<User> userList, List<Expense> expenseList)
     {
-        using (StreamReader file = File.OpenText(@"json"))
-        using (JsonTextReader reader = new JsonTextReader(file))
-        {
-            JObject output = (JObject)JToken.ReadFrom(reader);
-            ExpenseManager deserializedExpenseManager = JsonConvert.DeserializeObject<ExpenseManager>(output.ToString());
-            UserList = deserializedExpenseManager.UserList;
-            ExpenseList = deserializedExpenseManager.ExpenseList;
-        }
+        UserList = userList;
+        ExpenseList = expenseList;
     }
     public List<User> GetUsers()
     {
@@ -26,12 +20,11 @@ public class ExpenseManager
     {
         return ExpenseList;
     }
-    public void UpdateUsers(List<User> userList)
+    public void UpdateLists()
     {
-        UserList = userList;
-    }
-    public void UpdateExpenses(List<Expense> expenseList)
-    {
-        ExpenseList = expenseList;
+        var json = File.ReadAllText("json");
+        var expenseManager = JsonConvert.DeserializeObject<ExpenseManager>(json);
+        UserList = expenseManager.UserList;
+        ExpenseList = expenseManager.ExpenseList;
     }
 }
