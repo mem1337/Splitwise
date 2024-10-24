@@ -21,6 +21,10 @@ class Program
 
         List<User> users = new List<User>();
         List<Expense> expenses = new List<Expense>();
+        /*string jsonContent=File.ReadAllText(@"json");
+        ExpenseManager expenseManager = JsonConvert.DeserializeObject<ExpenseManager>(jsonContent);
+        users = expenseManager.GetUsers();
+        expenses = expenseManager.GetExpenses();*/
 
         while(true)
         {
@@ -76,17 +80,22 @@ class Program
 
                     Expense expense = new Expense(expenseName,cost,whoOwes,users[decision].Name);
                     expenses.Add(expense);
+                    
                     ExpenseManager expenseManager = new ExpenseManager(expenses,users);
+                    expenseManager.UpdateUsers(users);
+                    expenseManager.UpdateExpenses(expenses);
+                    File.WriteAllText(@"json", expenseManager.ToString());
+
                     break;
                 case 3:
                     using (StreamReader file = File.OpenText(@"json"))
                     using (JsonTextReader reader = new JsonTextReader(file))
                     {
                         JObject output = (JObject)JToken.ReadFrom(reader);
-                        Expense deserializedExpense = JsonConvert.DeserializeObject<Expense>(output.ToString());
-                        Console.WriteLine(deserializedExpense.ToString());
+                        ExpenseManager deserializedExpenseManager = JsonConvert.DeserializeObject<ExpenseManager>(output.ToString());
+                        Console.WriteLine(deserializedExpenseManager.ToString());
                     }
-                   /*
+                    /*
                     for(int i = 0; i<expenses.Count; i++)
                     {
                         Console.WriteLine(expenses[i].ToString());
