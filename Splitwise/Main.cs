@@ -81,10 +81,12 @@ class Program
                     Expense expense = new Expense(expenseName,cost,whoOwes,users[decision].Name);
                     expenses.Add(expense);
                     
-                    ExpenseManager expenseManager = new ExpenseManager(expenses,users);
+                    ExpenseManager expenseManager = new ExpenseManager(users,expenses);
                     expenseManager.UpdateUsers(users);
                     expenseManager.UpdateExpenses(expenses);
-                    File.WriteAllText(@"json", expenseManager.ToString());
+                    File.WriteAllText(@"json", expenseManager);
+
+
 
                     break;
                 case 3:

@@ -2,12 +2,12 @@ namespace Splitwise;
 
 public class ExpenseManager
 {
-    public List<Expense> ExpenseList { get; set; }
-    public List<User> UserList { get; set; }
-    public ExpenseManager(List<Expense> expenseList, List<User> userList)
+    public List<User> UserList;
+    public List<Expense> ExpenseList;
+    public ExpenseManager(List<User> userList, List<Expense> expenseList)
     {
-        ExpenseList = expenseList;
         UserList = userList;
+        ExpenseList = expenseList;
     }
     public List<User> GetUsers()
     {
