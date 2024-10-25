@@ -1,8 +1,5 @@
 using System;
-using System.ComponentModel;
-using System.Text.Json.Serialization.Metadata;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Splitwise;
 
@@ -24,7 +21,7 @@ class Program
 
         var json = File.ReadAllText(@"json");
         var expenseManager = JsonConvert.DeserializeObject<ExpenseManager>(json);
-        //ExpenseManager expenseManager = new ExpenseManager(users, expenses);
+
         users = expenseManager.GetUsers();
         expenses = expenseManager.GetExpenses();
         id = expenseManager.GetId()-1;
@@ -43,10 +40,8 @@ class Program
                     name = Console.ReadLine();
                     User user = new User(name,id);
                     users.Add(user);
-                    expenseManager.UpdateUsers(users);
                     expenseManager.UpdateId(id);
                     break;
-
                 case 2:
                     Console.WriteLine("What is the name of the expense?");
                     expenseName = Console.ReadLine();
@@ -82,12 +77,9 @@ class Program
                             }
                         }
                     }
-
                     Expense expense = new Expense(expenseName,cost,whoOwes,users[decision].Name);
                     expenses.Add(expense);
-                    expenseManager.UpdateExpenses(expenses);
                     File.WriteAllText(@"json", JsonConvert.SerializeObject(expenseManager));
-
                     break;
                 case 3:
                     for(int i = 0; i<expenses.Count; i++)
