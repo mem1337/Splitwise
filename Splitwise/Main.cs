@@ -7,27 +7,17 @@ class Program
 {
     public static void Main(String[] args)
     {
-        int id = 0;
         int decision;
-
         float cost;
         float money;
-
-        string name;
         string expenseName;
-
-        List<User> users = new List<User>();
-        List<Expense> expenses = new List<Expense>();
 
         var json = File.ReadAllText(@"json");
         var expenseManager = JsonConvert.DeserializeObject<ExpenseManager>(json);
 
-        users = expenseManager.GetUsers();
-        expenses = expenseManager.GetExpenses();
-        id = expenseManager.GetId()-1;
-
         while(true)
         {
+            Console.Clear();
             Dictionary<string, float> whoOwes = new Dictionary<string, float>();
 
             Console.WriteLine("Press (1) to add a user, (2) to add an expense, (3) to show the debt, (4) to list the users.");
@@ -35,12 +25,8 @@ class Program
             switch(decision)
             {
                 case 1:
-                    id++;
                     Console.WriteLine("What is the name of the user?");
-                    name = Console.ReadLine();
-                    User user = new User(name,id);
-                    users.Add(user);
-                    expenseManager.UpdateId(id);
+                    expenseManager.AddUser(Console.ReadLine());
                     break;
                 case 2:
                     Console.WriteLine("What is the name of the expense?");
@@ -50,48 +36,45 @@ class Program
                     cost = Convert.ToInt32(Console.ReadLine());
 
                     Console.WriteLine("Who is paying for the expense?");
-                    for(int i = 0; i < users.Count; i++)
+                    for(int i = 0; i < expenseManager.GetUserCount(); i++)
                     {
-                        Console.Write($"{users[i].Id}. {users[i].Name} ");
+                        Console.Write($"{expenseManager.GetSpecificUser(i).Id}. {expenseManager.GetSpecificUser(i).Name} ");
                     }
                     decision = Convert.ToInt32(Console.ReadLine())-1;
-                    Console.WriteLine($"{users[decision].Name} is paying!");
+                    Console.WriteLine($"{expenseManager.GetSpecificUser(decision).Name} is paying!");
 
                     float tempMoney = 0;
-                    for (int i = 0; i < users.Count; i++)
+                    for (int i = 0; i < expenseManager.GetUserCount(); i++)
                     {
-                        if(users[i].Name!=users[decision].Name)
+                        if(expenseManager.GetSpecificUser(i).Name!=expenseManager.GetSpecificUser(decision).Name)
                         {
-                            Console.WriteLine($"How much does {users[i].Name} owe?");
+                            Console.WriteLine($"How much does {expenseManager.GetSpecificUser(i).Name} owe?");
                             money = Convert.ToInt32(Console.ReadLine());
 
                             if (money >= cost-tempMoney)
                             {
-                                whoOwes.Add(users[i].Name,(cost-tempMoney));
+                                whoOwes.Add(expenseManager.GetSpecificUser(i).Name,(cost-tempMoney));
                                 break;
                             }
                             if (money < cost-tempMoney)
                             {
                                 tempMoney+=money;
-                                whoOwes.Add(users[i].Name,money);
+                                whoOwes.Add(expenseManager.GetSpecificUser(i).Name,money);
                             }
                         }
                     }
-                    Expense expense = new Expense(expenseName,cost,whoOwes,users[decision].Name);
-                    expenses.Add(expense);
+                    expenseManager.AddExpense(expenseName,cost,whoOwes,expenseManager.GetSpecificUser(decision).Name);
                     File.WriteAllText(@"json", JsonConvert.SerializeObject(expenseManager));
                     break;
                 case 3:
-                    for(int i = 0; i<expenses.Count; i++)
-                    {
-                        Console.WriteLine(expenses[i].ToString());
-                    }
+                    Console.Clear();
+                    Console.WriteLine(expenseManager.GetDebtSummaries());
+                    Console.ReadKey();
                     break;
                 case 4:
-                    for(int i = 0; i<users.Count; i++)
-                    {
-                        Console.WriteLine(users[i].Name);
-                    }
+                    Console.Clear();
+                    Console.WriteLine(expenseManager.GetUserNames());
+                    Console.ReadKey();
                     break;
             }
         }
