@@ -12,15 +12,23 @@ class Program
         float money;
         string expenseName;
 
-        var json = File.ReadAllText(@"json");
+        if (!File.Exists("json") || new FileInfo("json").Length == 0)
+        {
+            var emptyManager = new ExpenseManager(new List<User>(), new List<Expense>());
+            File.WriteAllText("json", JsonConvert.SerializeObject(emptyManager));
+        }
+
+        var json = File.ReadAllText("json");
         var expenseManager = JsonConvert.DeserializeObject<ExpenseManager>(json);
+        
 
         while(true)
         {
             Console.Clear();
             Dictionary<string, float> whoOwes = new Dictionary<string, float>();
-
-            Console.WriteLine("Press (1) to add a user, (2) to add an expense, (3) to show the debt, (4) to list the users.");
+            File.WriteAllText(@"json", JsonConvert.SerializeObject(expenseManager));
+            
+            Console.WriteLine("Press (1) to add a user, (2) to add an expense, (3) to show the debts, (4) to list the users, (5) to remove a user and (6) to remove an expense.");
             decision = Convert.ToInt32(Console.ReadLine());
             switch(decision)
             {
@@ -64,17 +72,33 @@ class Program
                         }
                     }
                     expenseManager.AddExpense(expenseName,cost,whoOwes,expenseManager.GetSpecificUser(decision).Name);
-                    File.WriteAllText(@"json", JsonConvert.SerializeObject(expenseManager));
                     break;
                 case 3:
-                    Console.Clear();
                     Console.WriteLine(expenseManager.GetDebtSummaries());
                     Console.ReadKey();
                     break;
                 case 4:
-                    Console.Clear();
                     Console.WriteLine(expenseManager.GetUserNames());
                     Console.ReadKey();
+                    break;
+                case 5:
+                    Console.WriteLine(expenseManager.GetUserNames());
+                    Console.WriteLine("Who would you like to remove?");
+                    var whoToDelete = Console.ReadLine();
+                    if (whoToDelete != null || whoToDelete is string)
+                    {
+                        expenseManager.RemoveUser(Convert.ToInt32(whoToDelete)-1);
+                    }
+                    break;
+                case 6:
+                    Console.WriteLine(expenseManager.GetDebtSummaries());
+                    Console.WriteLine("Which expense would you like to remove?");
+                    var whatToRemove = Console.ReadLine();
+                    if (whatToRemove != null || whatToRemove is string)
+                    {
+                        expenseManager.RemoveExpense(Convert.ToInt32(whatToRemove));
+                    }
+                    
                     break;
             }
         }

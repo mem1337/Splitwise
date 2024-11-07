@@ -1,13 +1,15 @@
 namespace Splitwise;
 public class Expense
 {
-    public string ExpenseName { get; set; }
-    public float ExpenseCost { get; set; }
-    public Dictionary<string, float> WhoOwes { get; set; }
+    public int Id { get; set; }
+    public string ExpenseName { get; }
+    public float ExpenseCost { get; }
+    public Dictionary<string, float> WhoOwes { get; }
     public string WhoPaid { get; set; }
 
-    public Expense(string expenseName, float expenseCost, Dictionary<string,float> whoOwes, string whoPaid)
+    public Expense(int id, string expenseName, float expenseCost, Dictionary<string,float> whoOwes, string whoPaid)
     {
+        Id = id;
         ExpenseName = expenseName;
         ExpenseCost = expenseCost;
         WhoOwes = whoOwes;
@@ -16,7 +18,7 @@ public class Expense
 
     public override string ToString()
     {
-        string result = $"{WhoPaid} paid {ExpenseCost} in total for {ExpenseName}.";
+        string result = $"{Id}. {WhoPaid} paid {ExpenseCost} in total for {ExpenseName}.";
         foreach (KeyValuePair<string, float> a in WhoOwes)
         {
             result+=$"\n - {a.Key} owes {a.Value}.";

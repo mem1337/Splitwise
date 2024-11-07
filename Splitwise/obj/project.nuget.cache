@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "DapPO2VUAPO5RDScsNBcY6cmvMv+K+ve6M3j+qpyxBMP0o/Q3R691i3wyhXdaxXWHfgTF4jwNJ36zKSl++tnOg==",
+  "dgSpecHash": "fj8diohRuIM15nzpThf5eba4xRdJ2zhumYPS0Mq2fisJ1ms/uyxkC3nE0H+E+FkLXzUHLk/svWsdvjqcMP5L4g==",
   "success": true,
-  "projectFilePath": "/home/aleks/Projects/Splitwise/Splitwise.csproj",
+  "projectFilePath": "/home/aleks/Projects/Splitwise/Splitwise/Splitwise.csproj",
   "expectedPackageFiles": [
     "/home/aleks/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
-    "/home/aleks/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.8/microsoft.aspnetcore.app.ref.8.0.8.nupkg.sha512"
+    "/home/aleks/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.10/microsoft.aspnetcore.app.ref.8.0.10.nupkg.sha512"
   ],
   "logs": []
 }
